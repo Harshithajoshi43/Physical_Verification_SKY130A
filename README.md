@@ -69,103 +69,32 @@ subfolders, then copy in the PDK startup files:
  - sky130A_setup.tcl   -> netgen/
 
 
-5. THE DESIGN: A CMOS INVERTER
- Device   Model                    W      L       Fingers  Body
- NMOS     sky130_fd_pr__nfet_01v8  4.5 um 0.18 um 3        VSS
- PMOS     sky130_fd_pr__pfet_01v8  3 um   0.18 um 3        VDD
+5 . ENVIRONMENT SETUP
+```bash
+lsb_release -a
+uname -a
+free -h
+df -h /
+nproc
+```
 
-Subcircuit pin order: vdd, in, out, vss. A custom symbol was made so the
-inverter can be dropped into a testbench.
+Update packages and install Git:
 
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install git -y
+git --version
+```
 
-6. STEP-BY-STEP FLOW
-Step 1: Schematic and pre-layout simulation
- - Build the inverter and testbench in Xschem (1.8 V supply, pulse input).
- - Run the transient simulation. Output should be the inverse of the input.
-   This gives a reference result before any layout exists.
+## 3. Tool Installation
 
-Step 2: Layout in Magic
- - NMOS near the VSS rail at the bottom, PMOS near the VDD rail at the top.
- - Both devices use three fingers.
- - A Metal2 jumper is needed to get past a routing conflict (see section 8).
- - readspice only reads a netlist. It does NOT build a routed layout for you.
+### Magic
 
-Step 3: DRC
- - Run: drc check, drc count, drc why.
- - "drc why" explains which rule a flagged error violates.
- - Target: 0 errors.
-
-Step 4: Extraction
- - Run: extract all, ext2spice lvs, ext2spice.
- - The "lvs" option sets up the netlist style that Netgen expects.
- - Workshop extras: ext2spice cthresh 0.01 (ignore tiny capacitances) and
-   ext2spice extresist on (include extracted resistance).
-
-Step 5: LVS in Netgen
- - Compare the Magic-extracted netlist to the Xschem netlist, using
-   sky130A_setup.tcl as the rule file.
- - Success message: "Circuits match uniquely."
- - Expected for this design: 2 devices and 4 nets on both sides (the three
-   fingers per transistor merge into one device each).
-
-Step 6: Post-layout simulation
- - Simulate the extracted netlist with a 10 fF load capacitor, 1.8 V supply
-   and a 10 ns period pulse input.
- - The logic is still correct. The difference from pre-layout is that the
-   extracted version carries real parasitics.
-
-
-7. RESULTS SUMMARY
- - Pre-layout sim: output is the complement of the input.
- - DRC: 0 violations.
- - LVS: match, 2 devices, 4 nets.
- - Post-layout sim: still a working inverter, now including parasitics.
-
-
-8. LVS DEBUGGING: THE MAIN LESSON
-Symptom: the first LVS run showed 8 nets in layout vs 4 in the schematic, and
-4 devices vs 2.
-
-Why: a 3-finger transistor has four diffusion strips in the order
-drain, source, drain, source. If the two inner source strips are not wired to
-the supply rail, Magic treats each as its own floating net and does not merge
-the fingers into one device.
-
-Fixes:
- - NMOS: add Metal1 contacts on the inner source strips and tie them to VSS.
- - PMOS: same idea with VDD, but going straight up with Metal1 would run into
-   the drain strip tied to "out" and short out to vdd. The workaround is a
-   jumper: Metal1 -> Via1 -> Metal2 -> Via1 -> Metal1, which hops over the
-   drain.
-
-Progress of the fixes (NMOS / PMOS device counts, nets layout vs schematic):
- start: 3->2 / 3->2, 8 vs 4 nets
- NMOS fixed: 3->1 / 3->2, 5 vs 4
- partial PMOS fix: no improvement
- PMOS jumper done: 3->1 / 3->1, 4 vs 4 -> match
-
-
-9. KEY TAKEAWAYS
- 1. In multi-finger devices, every diffusion strip must be wired explicitly.
- 2. When Metal1 is blocked, hop over with Via1 -> Metal2 -> Via1.
- 3. LVS reports are diagnostic. Net and device counts tell you exactly what is
-    unconnected or shorted.
- 4. DRC-clean does not mean LVS-correct, and LVS-correct does not mean
-    DRC-clean. Both checks are needed.
- 5. Tool versions and OS choice matter for open-source EDA builds.
-
-
-10. EXTRA WORKSHOP COMMANDS (from the yathAg snippet)
- - Run a standard DRC on a library cell with the run_standard_drc.py script
-   in libs.tech/magic.
- - Check metal density on a GDS with check_density.py.
- - Generate fill patterns with generate_fill.py (load the cell in Magic and
-   set "box values 0 0 0 0" to view fill).
- - Workshop topics also included GDSII data formats, extraction styles,
-   ports and port indexes, abstract views, and XOR verification.
-
-
-11. SOURCES
- - SKY130A PDK docs (skywater-pdk.readthedocs.io)
- - Magic and Netgen docs (opencircuitdesign.com)
- - VSD Physical Verification workshop (vlsisystemdesign.com)
+```bash
+git clone git://opencircuitdesign.com/magic
+cd magic
+sudo apt install tcl-dev tk-dev -y
+./configure
+make
+sudo make install
+```
