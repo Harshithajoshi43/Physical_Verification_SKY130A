@@ -85,6 +85,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install git -y
 git --version
 ```
+<img width="1080" height="617" alt="image" src="https://github.com/user-attachments/assets/92c4f3de-fa77-4c14-90c7-65f3445c2b6d" />
 
 ## 3. Tool Installation
 
@@ -98,3 +99,5 @@ sudo apt install tcl-dev tk-dev -y
 make
 sudo make install
 ```
+<img width="1080" height="602" alt="image" src="https://github.com/user-attachments/assets/1e929542-7732-46ab-9983-4a9ce37efab8" />
+
