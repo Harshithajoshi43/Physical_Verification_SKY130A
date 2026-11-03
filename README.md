@@ -178,3 +178,66 @@ sudo make install
 
 With Xschem, NGSpice and the PDK in place, the toolchain is complete and the
 design flow can begin.
+
+## Creating the Project Working Directory
+
+Before any design work, I made a project folder with one subfolder per tool
+(layout, LVS and schematic), then copied the PDK's startup files into each so
+every tool launches with the SKY130A settings already loaded.
+
+| Folder | Tool | File copied in | Purpose |
+|--------|------|----------------|---------|
+| xschem | Xschem | xschemrc | Library paths and PDK symbols for schematics |
+| xschem | NGSpice | .spiceinit | Simulator startup settings |
+| mag | Magic | .magicrc | Loads the sky130A tech file and layout settings |
+| netgen | Netgen | sky130A_setup.tcl | Device-matching rules for LVS |
+
+### Create the folders
+
+```bash
+mkdir -p ~/Inverter/mag ~/Inverter/netgen ~/Inverter/xschem
+cd ~/Inverter
+```
+
+### Copy the PDK startup files
+
+```bash
+cd ~/Inverter/xschem
+cp /usr/local/share/pdk/sky130A/libs.tech/xschem/xschemrc .
+cp /usr/local/share/pdk/sky130A/libs.tech/ngspice/spinit .spiceinit
+
+cd ../mag
+cp /usr/local/share/pdk/sky130A/libs.tech/magic/sky130A.magicrc .magicrc
+
+cd ../netgen
+cp /usr/local/share/pdk/sky130A/libs.tech/netgen/sky130A_setup.tcl .
+
+cd ..
+```
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/4858371b-4f64-440c-9640-d52c745b8622" />
+
+### Check that everything copied correctly
+
+```bash
+ls -a ~/Inverter/xschem ~/Inverter/mag ~/Inverter/netgen
+```
+
+Expected: `xschemrc` and `.spiceinit` in xschem, `.magicrc` in mag, and
+`sky130A_setup.tcl` in netgen. Hidden files starting with a dot only show up
+with `ls -a`.
+
+### Note on the PDK path
+
+The PDK installed under /usr/local/share/pdk on my machine. If the copy
+commands report "No such file or directory", the PDK is in a different
+location. Locate it with:
+
+```bash
+ls -d /usr/share/pdk /usr/local/share/pdk 2>/dev/null
+```
+Creating inverter schematic using xschem
+An initial schematic is made by placing components from the open_pdk library
+The required changes to the properties of the device can be made here and will automatically reflect in the layout
+
+<img width="1600" height="903" alt="image" src="https://github.com/user-attachments/assets/a10c34da-1210-4ea5-a46a-38d508c71c52" />
+
