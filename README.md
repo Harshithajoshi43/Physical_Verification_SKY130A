@@ -144,6 +144,8 @@ cd release
 make
 sudo make install
 ```
+<img width="1069" height="621" alt="image" src="https://github.com/user-attachments/assets/33a30c4b-b9a1-41a6-abde-726eaf1c1a7c" />
+
 
 The waveform plots open in an X window, so xterm must be present:
 
