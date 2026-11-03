@@ -254,4 +254,7 @@ magic
 
 <img width="1915" height="1058" alt="image" src="https://github.com/user-attachments/assets/955d0563-3c25-4ee7-a4fd-8ecf82595172" />
 
+<img width="1907" height="1079" alt="image" src="https://github.com/user-attachments/assets/59b1a63b-0541-4f22-b6e7-92925385f783" />
+
+
 
