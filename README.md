@@ -241,3 +241,9 @@ The required changes to the properties of the device can be made here and will a
 
 <img width="1600" height="903" alt="image" src="https://github.com/user-attachments/assets/a10c34da-1210-4ea5-a46a-38d508c71c52" />
 
+Layout — Magic VLSI
+```bash
+cd Inverter/mag
+magic 
+```
+
