@@ -135,6 +135,9 @@ Download the release tarball from https://sourceforge.net/projects/ngspice/files
 into a local folder, then build it in a separate "release" directory so the
 source tree stays clean.
 
+<img width="1080" height="624" alt="image" src="https://github.com/user-attachments/assets/124d94fd-5096-42da-8015-015e54035c52" />
+
+
 ```bash
 tar -zxvf ngspice-37.tar.gz
 cd ngspice-37
