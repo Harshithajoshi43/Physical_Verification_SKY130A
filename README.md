@@ -70,6 +70,12 @@ subfolders, then copy in the PDK startup files:
 
 
 5 . ENVIRONMENT SETUP
+## Setting Up the Open-Source Toolchain
+
+Three tools are needed before the design flow can start: Xschem for drawing
+schematics, NGSpice for simulation, and open_pdks to install the SKY130 process
+files. Each one is set up below.
+
 ```bash
 lsb_release -a
 uname -a
@@ -101,3 +107,69 @@ sudo make install
 ```
 <img width="1080" height="602" alt="image" src="https://github.com/user-attachments/assets/1e929542-7732-46ab-9983-4a9ce37efab8" />
 
+
+
+---
+
+### Xschem (schematic capture)
+
+Xschem is the tool used to draw circuits and generate netlists. It is compiled
+from the author's GitHub repository.
+
+```bash
+git clone https://github.com/StefanSchippers/xschem.git xschem_git
+cd xschem_git
+./configure
+make
+sudo make install
+```
+
+Further documentation: http://repo.hu/projects/xschem/index.html
+
+---
+
+### NGSpice (circuit simulator)
+
+NGSpice is the open-source SPICE engine that runs the transient simulations.
+Download the release tarball from https://sourceforge.net/projects/ngspice/files/
+into a local folder, then build it in a separate "release" directory so the
+source tree stays clean.
+
+```bash
+tar -zxvf ngspice-37.tar.gz
+cd ngspice-37
+mkdir release
+cd release
+../configure --with-x --with-readline=yes --disable-debug
+make
+sudo make install
+```
+
+The waveform plots open in an X window, so xterm must be present:
+
+```bash
+sudo apt-get update
+sudo apt-get install xterm
+```
+
+Further documentation: https://ngspice.sourceforge.io/index.html
+
+---
+
+### open_pdks (SKY130 process files)
+
+open_pdks is an installer that takes the Google/SkyWater sky130 process data
+(https://github.com/google/skywater-pdk) and arranges it for open-source EDA
+tools, including Magic, Netgen, KLayout, qflow and OpenLane. It supplies the
+tech files, device models and symbols the other tools rely on.
+
+```bash
+git clone git://opencircuitdesign.com/open_pdks
+cd open_pdks
+./configure --enable-sky130-pdk
+make
+sudo make install
+```
+
+With Xschem, NGSpice and the PDK in place, the toolchain is complete and the
+design flow can begin.
