@@ -246,4 +246,5 @@ Layout — Magic VLSI
 cd Inverter/mag
 magic 
 ```
+<img width="1080" height="612" alt="image" src="https://github.com/user-attachments/assets/ad8fdc7c-ef0a-4be7-9aa4-92f94ff6ca6f" />
 
