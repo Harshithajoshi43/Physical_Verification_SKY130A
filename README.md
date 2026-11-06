@@ -249,12 +249,14 @@ magic
 
 <img width="1915" height="1080" alt="image" src="https://github.com/user-attachments/assets/b3d0d463-cc42-41cd-89b3-3ef234109a83" />
 
+<img width="1915" height="1080" alt="image" src="https://github.com/user-attachments/assets/d9495ee0-084c-481e-8a3a<img width="1915" height="1080" alt="Screenshot from 2026-11-03 17-58-25" src="https://github.com/user-attachments/assets/71c2cdc8-81a4-40b8-996d-25186005826a" />
+-56ca506a3f57" />
+
 <img width="1857" height="907" alt="Screenshot from 2026-11-03 12-58-08" src="https://github.com/user-attachments/assets/ad42f005-98c1-46f4-bfec-948e2235c7bd" />
 
 
 
-<img width="1915" height="1080" alt="image" src="https://github.com/user-attachments/assets/d9495ee0-084c-481e-8a3a<img width="1915" height="1080" alt="Screenshot from 2026-11-03 17-58-25" src="https://github.com/user-attachments/assets/71c2cdc8-81a4-40b8-996d-25186005826a" />
--56ca506a3f57" />
+
 
 <img width="1915" height="1058" alt="image" src="https://github.com/user-attachments/assets/955d0563-3c25-4ee7-a4fd-8ecf82595172" />
 
