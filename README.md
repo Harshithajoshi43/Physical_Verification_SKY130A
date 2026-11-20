@@ -262,14 +262,7 @@ magic
 
 <img width="1907" height="1079" alt="image" src="https://github.com/user-attachments/assets/59b1a63b-0541-4f22-b6e7-92925385f783" />
 
-Results
-Activity	Result
-Schematic Capture	Completed
-Pre-layout Simulation	Successful
-Layout Design	Generated
-DRC Verification	0 DRC errors
-LVS Comparison	circuit matched
-Post-layout Simulation	completed
+
 Conclusion
 This project focuses on designing and verifying a CMOS inverter using SKY130A technology.
 The CMOS inverter schematic is created using Xschem, and its functionality is verified through transient simulation using ngspice.
